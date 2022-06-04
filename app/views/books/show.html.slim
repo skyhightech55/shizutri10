@@ -1,55 +1,62 @@
 .row
-  .col-xs-3
+  .col-xs-8
     = form_with model: @book, local: true do |f|
+    
 
-      = f.label :title, 'プランタイトル'
-      br
-      = f.text_field :title, class:'form-control'
-      br
-
-      = f.label :body, 'プラン概要'
-      br
-      = f.text_area :body, class:'form-control'
-      br
-
-      .category-form
-        = label_tag 'スポット１'
-        = select_tag 'parent_id', options_for_select(@category_parent_array), id: 'parent-category', class: 'form-control'
-        i.fas.fa-chevron-down
-      br
-
-       .category2-form
-         = label_tag 'スポット２'
-         = select_tag 'parent_id', options_for_select(@category2_parent_array), id: 'parent-category2', class: 'form-control'
-         i.fas.fa-chevron-down
-      br
-
-       .category3-form
-         = label_tag 'スポット３'
-         = select_tag 'parent_id', options_for_select(@category3_parent_array), id: 'parent-category3', class: 'form-control'
-         i.fas.fa-chevron-down
-      br
-
-       .category4-form
-         = label_tag 'スポット4'
-         = select_tag 'parent_id', options_for_select(@category4_parent_array), id: 'parent-category4', class: 'form-control'
-         i.fas.fa-chevron-down
-      br
-
-       .category5-form
-         = label_tag 'スポット5'
-         = select_tag 'parent_id', options_for_select(@category5_parent_array), id: 'parent-category5', class: 'form-control'
-         i.fas.fa-chevron-down
-      br
-
-      .category6-form
-         = label_tag 'スポット6'
-         = select_tag 'parent_id', options_for_select(@category6_parent_array), id: 'parent-category6', class: 'form-control'
-         i.fas.fa-chevron-down
-      br
-
-      .category7-form
-         = label_tag 'スポット7'
-         = select_tag 'parent_id', options_for_select(@category7_parent_array), id: 'parent-category7', class: 'form-control'
-         i.fas.fa-chevron-down
-      br
+         .container-xs-18
+    table.table
+      thead
+        tr
+          th
+            | プランナー
+          th
+            | タイトル
+          th
+            | コンセプト
+      tbody
+       
+          tr
+            td
+             = @book.user.username
+            td
+             = @book.title
+            td
+             = @book.body
+      thead
+        tr
+          th
+            | プラン詳細
+      thead
+        tr
+          th
+            | １日目
+         
+      tbody
+        
+          
+          tr
+            td
+              - @book.categories.each do |category|
+                = category.name
+                | / 
+            td
+              - @book.category2s.each do |category2|
+                = category2.name
+                | / 
+            td
+              - @book.category3s.each do |category3|
+                = category3.name
+                | / 
+            td
+              - @book.category4s.each do |category4|
+                = category4.name
+                | / 
+            td
+              - @book.category5s.each do |category5|
+                = category5.name
+                | / 
+            
+           
+            
+            
+      
