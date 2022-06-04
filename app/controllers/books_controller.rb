@@ -175,7 +175,6 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
-    @books = Book.all
     @category_parent_array = Category.category_parent_array_create
     @category2_parent_array = Category2.category2_parent_array_create
     @category3_parent_array = Category3.category3_parent_array_create
@@ -186,6 +185,31 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book = Book.find(book_params)
+  end
+
+  def edit
+    unless @book.user == current_user
+      redirect_to books_path
+    end
+    @category_parent_array = Category.category_parent_array_create
+  end
+
+  def update
+    if @book.update(book_params)
+      book_categories = BookCategory.where(book_id: @book.id)
+      book_categories.destroy_all
+      BookCategory.maltilevel_category_create(
+        @book,
+        params[:parent_id],
+        params[:children_id],
+        params[:grandchildren_id]
+      )
+      redirect_to @book
+    else
+      @category_parent_array = Category.category_parent_array_create
+      render 'edit'
+    end
   end
 
   
@@ -193,6 +217,6 @@ class BooksController < ApplicationController
   private
 
     def book_params
-      params.require(:book).permit(:title, :body, { category_ids: [] }, { category2_ids: [] }, { category3_ids: [] }, { category4_ids: [] }, { category5_ids: [] }, { category6_ids: [] }, { category7_ids: [] })
+      params.permit(:title, :body, { category_ids: [] }, { category2_ids: [] }, { category3_ids: [] }, { category4_ids: [] }, { category5_ids: [] }, { category6_ids: [] }, { category7_ids: [] })
     end
 end

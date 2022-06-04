@@ -27,9 +27,7 @@ html
           span
           span
       - if user_signed_in?
-        #navbarExampleTransparentExample.navbar-menu
-          .navbar-end
-            .navbar-item
+            .container
               .field.is-grouped
                 p.control
                   = link_to "プランナー一覧", users_path, class: " button is-warning is-light"
@@ -37,8 +35,9 @@ html
                   = link_to "マイページ", user_path(current_user), class: "button is-warning is-light"
                 p.control
                   = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light"
-                p.control
-                  = link_to "投稿する", new_book_path, method: :get, class: " button is-warning is-light"
+                
+            br  
+                  
       - else
         #navbarExampleTransparentExample.navbar-menu
           .navbar-end

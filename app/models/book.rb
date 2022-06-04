@@ -14,4 +14,5 @@ class Book < ApplicationRecord
   has_many :category6s, through: :book_category6s
   has_many :book_category7s
   has_many :category7s, through: :book_category7s
+  attachment :image
 end

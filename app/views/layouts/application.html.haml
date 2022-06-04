@@ -33,6 +33,8 @@
                   = link_to "マイページ", user_path(current_user), class: "button is-warning is-light"
                 %p.control
                   = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light"
+                %p.control
+                  = link_to "プラン詳細", book_path, method: :get, class: "button is-warning is-light"
       - else
         #navbarExampleTransparentExample.navbar-menu
           .navbar-end
