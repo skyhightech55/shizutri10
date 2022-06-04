@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    title
+      | Shizutri
+    = csrf_meta_tags
+    = csp_meta_tag
+    link[rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous"]
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_pack_tag 'application' 
+  body
+    - if flash[:notice]
+      .notification.is-info
+        p.notice
+          = notice
+    - if flash[:alert]
+      .notification.is-danger
+        p.alert
+          = alert
+    nav.navbar.is-warning
+      .navbar-brand
+        = link_to root_path, class: "navbar-item" do
+          h1.title.is-4[style="font-family: cursive;"]
+            | shizutri
+        .navbar-burger.burger[data-target="navbarExampleTransparentExample"]
+          span
+          span
+          span
+      - if user_signed_in?
+        #navbarExampleTransparentExample.navbar-menu
+          .navbar-end
+            .navbar-item
+              .field.is-grouped
+                p.control
+                  = link_to "プランナー一覧", users_path, class: " button is-warning is-light"
+                p.control
+                  = link_to "マイページ", user_path(current_user), class: "button is-warning is-light"
+                p.control
+                  = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light"
+                p.control
+                  = link_to "投稿する", new_book_path, method: :get, class: " button is-warning is-light"
+      - else
+        #navbarExampleTransparentExample.navbar-menu
+          .navbar-end
+            .navbar-item
+              .field.is-grouped
+                p.control
+                  = link_to "ログイン", new_user_session_path, class: "button is-warning is-light"
+                p.control
+                  = link_to "新規登録", new_user_registration_path, class: "button is-warning is-light"
+    = yield

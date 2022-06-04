@@ -1,0 +1,4 @@
+= attachment_image_tag @user, :profile_image, fallback: "no-image.png", class: "profile_image is-rounded"
+= @user.username
+= @user.profile
+= link_to "編集", edit_user_path(@user), class: "button is-primary"

@@ -1,0 +1,32 @@
+.row
+  
+      
+     
+
+    
+   
+
+  .col-xs-9
+    table.table
+      thead
+        tr
+          th
+            | プランナー
+          th
+            | タイトル
+          th
+            | コンセプト
+          
+      tbody
+        - @books.each do |book|
+          tr
+            td
+              = link_to book.user  do
+                = book.user.username
+            td
+              = link_to book.title, book_path(book)
+            td
+              = book.body
+            
+            
+      
