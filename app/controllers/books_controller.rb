@@ -1,6 +1,5 @@
 class BooksController < ApplicationController
   def new
-    
     @book = Book.new
     @category_parent_array = Category.category_parent_array_create
     @category2_parent_array = Category2.category2_parent_array_create
@@ -18,14 +17,14 @@ class BooksController < ApplicationController
     if @book.save
       BookCategory.maltilevel_category_create(
         @book,
-        params[:@category_parent_id],
+        params[:parent_id],
         params[:children_id],
         params[:grandchildren_id]
       )
       redirect_to books_path
     else
       @books = Book.all
-      @category_parent_array = Category.category_parent_array_create
+      parent_array = Category.category_parent_array_create
       render 'index'
     end
     
@@ -126,7 +125,7 @@ class BooksController < ApplicationController
   end
 
   def get_category_children
-    @category_children = Category.find(params[:@category_parent_id]).children
+    @category_children = Category.find(params[:parent_id]).children
   end
   
   def get_category_grandchildren
