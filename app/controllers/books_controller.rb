@@ -1,11 +1,24 @@
 class BooksController < ApplicationController
+  def new
+    
+    @book = Book.new
+    @category_parent_array = Category.category_parent_array_create
+    @category2_parent_array = Category2.category2_parent_array_create
+    @category3_parent_array = Category3.category3_parent_array_create
+    @category4_parent_array = Category4.category4_parent_array_create
+    @category5_parent_array = Category5.category5_parent_array_create
+    @category6_parent_array = Category6.category6_parent_array_create
+    @category7_parent_array = Category7.category7_parent_array_create
+  end
+  
   def create
+    
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     if @book.save
       BookCategory.maltilevel_category_create(
         @book,
-        params[:parent_id],
+        params[:@category_parent_id],
         params[:children_id],
         params[:grandchildren_id]
       )
@@ -15,6 +28,7 @@ class BooksController < ApplicationController
       @category_parent_array = Category.category_parent_array_create
       render 'index'
     end
+    
     if @book.save
       BookCategory2.maltilevel_category2_create(
         @book,
@@ -45,7 +59,7 @@ class BooksController < ApplicationController
     if @book.save
       BookCategory4.maltilevel_category4_create(
         @book,
-        params[:parent_id],
+        params[:@category4_parent_id],
         params[:children_id],
         params[:grandchildren_id]
       )
@@ -112,7 +126,7 @@ class BooksController < ApplicationController
   end
 
   def get_category_children
-    @category_children = Category.find(params[:parent_id]).children
+    @category_children = Category.find(params[:@category_parent_id]).children
   end
   
   def get_category_grandchildren
@@ -173,16 +187,7 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
-  def new
-    @book = Book.new
-    @category_parent_array = Category.category_parent_array_create
-    @category2_parent_array = Category2.category2_parent_array_create
-    @category3_parent_array = Category3.category3_parent_array_create
-    @category4_parent_array = Category4.category4_parent_array_create
-    @category5_parent_array = Category5.category5_parent_array_create
-    @category6_parent_array = Category6.category6_parent_array_create
-    @category7_parent_array = Category7.category7_parent_array_create
-  end
+  
 
   def show
     @book = Book.find(params[:id])
@@ -215,6 +220,12 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, { category_ids: [] }, { category2_ids: [] }, { category3_ids: [] }, { category4_ids: [] }, { category5_ids: [] }, { category6_ids: [] }, { category7_ids: [] })
+    params.require(:book).permit(:title, :body, { category_ids: [] })
+    params.require(:book).permit(:title, :body, { category2_ids: [] })
+    params.require(:book).permit(:title, :body, { category3_ids: [] })
+    params.require(:book).permit(:title, :body, { category4_ids: [] })
+    params.require(:book).permit(:title, :body, { category5_ids: [] })
+    params.require(:book).permit(:title, :body, { category6_ids: [] })
+    params.require(:book).permit(:title, :body, { category7_ids: [] })
   end
 end

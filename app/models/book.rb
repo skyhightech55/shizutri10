@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true 
   has_many :book_categories
   has_many :categories, through: :book_categories
   has_many :book_category2s

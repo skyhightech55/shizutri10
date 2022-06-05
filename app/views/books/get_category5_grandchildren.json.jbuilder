@@ -1,4 +1,4 @@
-json.array! @category5_grandchildren do |grandchildren|
-  json.id grandchildren.id
-  json.name grandchildren.name
+json.array! @category5_grandchildren5 do |grandchildren5|
+  json.id grandchildren5.id
+  json.name grandchildren5.name
 end
